@@ -12,11 +12,13 @@ import { AccountType } from '../../shared/account-type.enum';
 export class AccountListComponent implements OnInit {
   cashAccounts: AccountSummary[];
   creditAccounts: AccountSummary[];
+  currentDate: string;
 
   constructor(private accountService: AccountService) {
   }
 
   ngOnInit() {
+    this.currentDate = new Date().toDateString();
     this.accountService.getAccountSummaries()
       .then(accounts => {
         this.cashAccounts = accounts.filter(v => v.type === AccountType.Checking || v.type === AccountType.Savings);
